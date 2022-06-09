@@ -1,4 +1,4 @@
-module github.com/amidaware/rmmagent
+module github.com/scs-ben/rmmagent
 
 go 1.18
 
@@ -23,7 +23,7 @@ require (
 )
 
 require (
-	github.com/amidaware/taskmaster v0.0.0-20220111015025-c9cd178bbbf2
+	github.com/scs-ben/taskmaster v0.0.0-20220111015025-c9cd178bbbf2
 	github.com/go-cmd/cmd v1.4.1
 )
 

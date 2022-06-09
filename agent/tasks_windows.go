@@ -19,8 +19,8 @@ import (
 	"strings"
 	"time"
 
-	rmm "github.com/amidaware/rmmagent/shared"
-	"github.com/amidaware/taskmaster"
+	rmm "github.com/scs-ben/rmmagent/shared"
+	"github.com/scs-ben/taskmaster"
 	"github.com/rickb777/date/period"
 )
 
@@ -311,7 +311,7 @@ func DeleteSchedTask(name string) error {
 	return nil
 }
 
-// CleanupSchedTasks removes all tacticalrmm sched tasks during uninstall
+// CleanupSchedTasks removes all scsrmm sched tasks during uninstall
 func CleanupSchedTasks() {
 	conn, err := taskmaster.Connect()
 	if err != nil {
@@ -325,7 +325,7 @@ func CleanupSchedTasks() {
 	}
 
 	for _, task := range tasks {
-		if strings.HasPrefix(task.Name, "TacticalRMM_") {
+		if strings.HasPrefix(task.Name, "SCSRMM_") {
 			conn.DeleteTask(fmt.Sprintf("\\%s", task.Name))
 		}
 	}

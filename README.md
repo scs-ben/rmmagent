@@ -1,5 +1,5 @@
 ### Tactical RMM Agent
-https://github.com/amidaware/tacticalrmm
+https://github.com/scs-ben/tacticalrmm
 
 #### building the agent
 ```

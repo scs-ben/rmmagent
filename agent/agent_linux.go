@@ -21,7 +21,7 @@ import (
 	"syscall"
 	"time"
 
-	rmm "github.com/amidaware/rmmagent/shared"
+	rmm "github.com/scs-ben/rmmagent/shared"
 	ps "github.com/elastic/go-sysinfo"
 	"github.com/go-resty/resty/v2"
 	"github.com/jaypipes/ghw"
@@ -128,7 +128,7 @@ func (a *Agent) osString() string {
 }
 
 func NewAgentConfig() *rmm.AgentConfig {
-	viper.SetConfigName("tacticalagent")
+	viper.SetConfigName("scsagent")
 	viper.SetConfigType("json")
 	viper.AddConfigPath("/etc/")
 	viper.AddConfigPath(".")
@@ -250,7 +250,7 @@ func (a *Agent) AgentUpdate(url, inno, version string) {
 
 	opts := a.NewCMDOpts()
 	opts.Detached = true
-	opts.Command = "systemctl restart tacticalagent.service"
+	opts.Command = "systemctl restart scsagent.service"
 	a.CmdV2(opts)
 }
 

@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	etcConfig = "/etc/tacticalagent"
+	etcConfig = "/etc/scsagent"
 )
 
 func (a *Agent) checkExistingAndRemove(silent bool) {}

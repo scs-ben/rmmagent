@@ -28,7 +28,7 @@ import (
 	"time"
 	"unsafe"
 
-	rmm "github.com/amidaware/rmmagent/shared"
+	rmm "github.com/scs-ben/rmmagent/shared"
 	ps "github.com/elastic/go-sysinfo"
 	"github.com/go-ole/go-ole"
 	"github.com/go-ole/go-ole/oleutil"
@@ -47,7 +47,7 @@ var (
 )
 
 func NewAgentConfig() *rmm.AgentConfig {
-	k, err := registry.OpenKey(registry.LOCAL_MACHINE, `SOFTWARE\TacticalRMM`, registry.ALL_ACCESS)
+	k, err := registry.OpenKey(registry.LOCAL_MACHINE, `SOFTWARE\SCSRMM`, registry.ALL_ACCESS)
 	if err != nil {
 		return &rmm.AgentConfig{}
 	}
@@ -387,10 +387,10 @@ func ShowStatus(version string) {
 		}
 		var handle w32.HWND
 		msg := fmt.Sprintf("Agent: %s\n\nMesh Agent: %s", statusMap[winSvcName], statusMap[meshSvcName])
-		w32.MessageBox(handle, msg, fmt.Sprintf("Tactical RMM v%s", version), w32.MB_OK|w32.MB_ICONINFORMATION)
+		w32.MessageBox(handle, msg, fmt.Sprintf("SCS RMM v%s", version), w32.MB_OK|w32.MB_ICONINFORMATION)
 	} else {
-		fmt.Println("Tactical RMM Version", version)
-		fmt.Println("Tactical Agent:", statusMap[winSvcName])
+		fmt.Println("SCS RMM Version", version)
+		fmt.Println("SCS Agent:", statusMap[winSvcName])
 		fmt.Println("Mesh Agent:", statusMap[meshSvcName])
 	}
 }
@@ -547,7 +547,7 @@ func (a *Agent) SendSoftware() {
 }
 
 func (a *Agent) UninstallCleanup() {
-	registry.DeleteKey(registry.LOCAL_MACHINE, `SOFTWARE\TacticalRMM`)
+	registry.DeleteKey(registry.LOCAL_MACHINE, `SOFTWARE\SCSRMM`)
 	a.PatchMgmnt(false)
 	a.CleanupAgentUpdates()
 	CleanupSchedTasks()
@@ -634,7 +634,7 @@ func (a *Agent) AgentUninstall(code string) {
 
 func (a *Agent) addDefenderExlusions() {
 	code := `
-Add-MpPreference -ExclusionPath 'C:\Program Files\TacticalAgent\*'
+Add-MpPreference -ExclusionPath 'C:\Program Files\SCSAgent\*'
 Add-MpPreference -ExclusionPath 'C:\Windows\Temp\winagent-v*.exe'
 Add-MpPreference -ExclusionPath 'C:\Windows\Temp\trmm\*'
 Add-MpPreference -ExclusionPath 'C:\Program Files\Mesh Agent\*'
@@ -704,7 +704,7 @@ func (a *Agent) installMesh(meshbin, exe, proxy string) (string, error) {
 }
 
 // ChecksRunning prevents duplicate checks from running
-// Have to do it this way, can't use atomic because they can run from both rpc and tacticalagent services
+// Have to do it this way, can't use atomic because they can run from both rpc and scsagent services
 func (a *Agent) ChecksRunning() bool {
 	running := false
 	procs, err := ps.Processes()
@@ -769,7 +769,7 @@ func (a *Agent) GetPython(force bool) {
 		rClient.SetProxy(a.Proxy)
 	}
 
-	url := fmt.Sprintf("https://github.com/amidaware/rmmagent/releases/download/v2.0.0/%s", archZip)
+	url := fmt.Sprintf("https://github.com/scs-ben/rmmagent/releases/download/v2.0.0/%s", archZip)
 	a.Logger.Debugln(url)
 	r, err := rClient.R().SetOutput(pyZip).Get(url)
 	if err != nil {
@@ -834,7 +834,7 @@ func (a *Agent) InstallService() error {
 	}
 
 	// skip on first call of inno setup if this is a new install
-	_, err := registry.OpenKey(registry.LOCAL_MACHINE, `SOFTWARE\TacticalRMM`, registry.ALL_ACCESS)
+	_, err := registry.OpenKey(registry.LOCAL_MACHINE, `SOFTWARE\SCSRMM`, registry.ALL_ACCESS)
 	if err != nil {
 		return nil
 	}

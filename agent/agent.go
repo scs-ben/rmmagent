@@ -27,7 +27,7 @@ import (
 
 	"time"
 
-	rmm "github.com/amidaware/rmmagent/shared"
+	rmm "github.com/scs-ben/rmmagent/shared"
 	ps "github.com/elastic/go-sysinfo"
 	gocmd "github.com/go-cmd/cmd"
 	"github.com/go-resty/resty/v2"
@@ -69,9 +69,9 @@ type Agent struct {
 }
 
 const (
-	progFilesName = "TacticalAgent"
-	winExeName    = "tacticalrmm.exe"
-	winSvcName    = "tacticalrmm"
+	progFilesName = "SCSAgent"
+	winExeName    = "scsrmm.exe"
+	winSvcName    = "scsrmm"
 	meshSvcName   = "mesh agent"
 )
 
@@ -122,15 +122,15 @@ func New(logger *logrus.Logger, version string) *Agent {
 	}
 
 	if runtime.GOOS == "linux" {
-		MeshSysExe = "/opt/tacticalmesh/meshagent"
+		MeshSysExe = "/opt/scsmesh/meshagent"
 	}
 
 	svcConf := &service.Config{
 		Executable:  exe,
 		Name:        winSvcName,
-		DisplayName: "TacticalRMM Agent Service",
+		DisplayName: "SCSRMM Agent Service",
 		Arguments:   []string{"-m", "svc"},
-		Description: "TacticalRMM Agent Service",
+		Description: "SCSRMM Agent Service",
 		Option: service.KeyValue{
 			"StartType":              "automatic",
 			"OnFailure":              "restart",
@@ -354,7 +354,7 @@ func (a *Agent) SyncMeshNodeID() {
 
 func (a *Agent) setupNatsOptions() []nats.Option {
 	opts := make([]nats.Option, 0)
-	opts = append(opts, nats.Name("TacticalRMM"))
+	opts = append(opts, nats.Name("SCSRMM"))
 	opts = append(opts, nats.UserInfo(a.AgentID, a.Token))
 	opts = append(opts, nats.ReconnectWait(time.Second*5))
 	opts = append(opts, nats.RetryOnFailedConnect(true))
@@ -397,7 +397,7 @@ func (a *Agent) CleanupAgentUpdates() {
 		a.Logger.Errorln(cderr)
 		return
 	}
-	folders, err := filepath.Glob("tacticalrmm*")
+	folders, err := filepath.Glob("scsrmm*")
 	if err == nil {
 		for _, f := range folders {
 			os.RemoveAll(f)
@@ -407,7 +407,7 @@ func (a *Agent) CleanupAgentUpdates() {
 
 func (a *Agent) RunPythonCode(code string, timeout int, args []string) (string, error) {
 	content := []byte(code)
-	dir, err := ioutil.TempDir("", "tacticalpy")
+	dir, err := ioutil.TempDir("", "scspy")
 	if err != nil {
 		a.Logger.Debugln(err)
 		return "", err

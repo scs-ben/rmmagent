@@ -1,8 +1,8 @@
-#define MyAppName "Tactical RMM Agent"
+#define MyAppName "SCS RMM Agent"
 #define MyAppVersion "2.0.4"
 #define MyAppPublisher "AmidaWare LLC"
-#define MyAppURL "https://github.com/amidaware"
-#define MyAppExeName "tacticalrmm.exe"
+#define MyAppURL "https://github.com/scs-ben"
+#define MyAppExeName "scsrmm.exe"
 #define MESHEXE "meshagent.exe"
 #define MESHDIR "{sd}\Program Files\Mesh Agent"
 
@@ -15,7 +15,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName="{sd}\Program Files\TacticalAgent"
+DefaultDirName="{sd}\Program Files\SCSAgent"
 DisableDirPage=yes
 SetupLogging=yes
 DisableProgramGroupPage=yes
@@ -33,14 +33,14 @@ MinVersion=6.0
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "C:\Users\Public\Documents\agent\tacticalrmm.exe"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "C:\Users\Public\Documents\agent\scsrmm.exe"; DestDir: "{app}"; Flags: ignoreversion;
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent runascurrentuser
 
 [UninstallRun]
 Filename: "{app}\{#MyAppExeName}"; Parameters: "-m cleanup"; RunOnceId: "cleanuprm";
-Filename: "{cmd}"; Parameters: "/c taskkill /F /IM tacticalrmm.exe"; RunOnceId: "killtacrmm";
+Filename: "{cmd}"; Parameters: "/c taskkill /F /IM scsrmm.exe"; RunOnceId: "killtacrmm";
 Filename: "{app}\{#MESHEXE}"; Parameters: "-fulluninstall"; RunOnceId: "meshrm";
 
 [UninstallDelete]
@@ -52,23 +52,23 @@ function InitializeSetup(): boolean;
 var
   ResultCode: Integer;
 begin
-  Exec('cmd.exe', '/c ping 127.0.0.1 -n 2 && net stop tacticalrpc', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Log('Stop tacticalrpc: ' + IntToStr(ResultCode));
+  Exec('cmd.exe', '/c ping 127.0.0.1 -n 2 && net stop scsrpc', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Log('Stop scsrpc: ' + IntToStr(ResultCode));
 
-  Exec('cmd.exe', '/c net stop tacticalagent', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Log('Stop tacticalagent: ' + IntToStr(ResultCode));
+  Exec('cmd.exe', '/c net stop scsagent', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Log('Stop scsagent: ' + IntToStr(ResultCode));
 
-  Exec('cmd.exe', '/c ping 127.0.0.1 -n 2 && net stop tacticalrmm', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Log('Stop tacticalrmm: ' + IntToStr(ResultCode));
+  Exec('cmd.exe', '/c ping 127.0.0.1 -n 2 && net stop scsrmm', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Log('Stop scsrmm: ' + IntToStr(ResultCode));
 
-  Exec('cmd.exe', '/c taskkill /F /IM tacticalrmm.exe', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Exec('cmd.exe', '/c taskkill /F /IM scsrmm.exe', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
   Log('taskkill: ' + IntToStr(ResultCode));
 
-  Exec('cmd.exe', '/c sc delete tacticalagent', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Log('delete tacticalagent: ' + IntToStr(ResultCode));
+  Exec('cmd.exe', '/c sc delete scsagent', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Log('delete scsagent: ' + IntToStr(ResultCode));
 
-  Exec('cmd.exe', '/c sc delete tacticalrpc', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Log('delete tacticalrpc: ' + IntToStr(ResultCode));
+  Exec('cmd.exe', '/c sc delete scsrpc', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Log('delete scsrpc: ' + IntToStr(ResultCode));
 
   Result := True;
 end;
@@ -79,23 +79,23 @@ var
   WorkingDir:   String;
 begin
 
-  WorkingDir := ExpandConstant('{sd}\Program Files\TacticalAgent');
-  Exec('cmd.exe', ' /c tacticalrmm.exe -m installsvc', WorkingDir, SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  WorkingDir := ExpandConstant('{sd}\Program Files\SCSAgent');
+  Exec('cmd.exe', ' /c scsrmm.exe -m installsvc', WorkingDir, SW_HIDE, ewWaitUntilTerminated, ResultCode);
   Log('install service: ' + IntToStr(ResultCode));
 
-  Exec('cmd.exe', '/c net start tacticalrmm', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Log('Start tacticalrmm: ' + IntToStr(ResultCode));
+  Exec('cmd.exe', '/c net start scsrmm', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Log('Start scsrmm: ' + IntToStr(ResultCode));
 end;
 
 function InitializeUninstall(): Boolean;
 var
   ResultCode: Integer;
 begin
-  Exec('cmd.exe', '/c ping 127.0.0.1 -n 2 && net stop tacticalrmm', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Exec('cmd.exe', '/c taskkill /F /IM tacticalrmm.exe', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Exec('cmd.exe', '/c ping 127.0.0.1 -n 2 && net stop scsrmm', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Exec('cmd.exe', '/c taskkill /F /IM scsrmm.exe', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
 
-  Exec('cmd.exe', '/c sc delete tacticalrmm', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Log('delete tacticalrmm: ' + IntToStr(ResultCode));
+  Exec('cmd.exe', '/c sc delete scsrmm', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Log('delete scsrmm: ' + IntToStr(ResultCode));
 
   Result := True;
 end;

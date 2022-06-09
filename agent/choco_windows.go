@@ -14,7 +14,7 @@ package agent
 import (
 	"time"
 
-	rmm "github.com/amidaware/rmmagent/shared"
+	rmm "github.com/scs-ben/rmmagent/shared"
 	"github.com/go-resty/resty/v2"
 )
 
