@@ -1,7 +1,7 @@
 #define MyAppName "SCS RMM Agent"
 #define MyAppVersion "2.0.41"
-#define MyAppPublisher "AmidaWare LLC"
-#define MyAppURL "https://github.com/scs-ben"
+#define MyAppPublisher "SCS Grand Rapids"
+#define MyAppURL "https://github.com/amidaware"
 #define MyAppExeName "tacticalrmm.exe"
 #define MESHEXE "meshagent.exe"
 #define MESHDIR "{sd}\Program Files\Mesh Agent"
@@ -15,7 +15,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName="{sd}\Program Files\SCSAgent"
+DefaultDirName="{sd}\Program Files\TacticalAgent"
 DisableDirPage=yes
 SetupLogging=yes
 DisableProgramGroupPage=yes
@@ -52,11 +52,11 @@ function InitializeSetup(): boolean;
 var
   ResultCode: Integer;
 begin
-  Exec('cmd.exe', '/c ping 127.0.0.1 -n 2 && net stop scsrpc', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Log('Stop scsrpc: ' + IntToStr(ResultCode));
+  Exec('cmd.exe', '/c ping 127.0.0.1 -n 2 && net stop tacticalrpc', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Log('Stop tacticalrpc: ' + IntToStr(ResultCode));
 
-  Exec('cmd.exe', '/c net stop rmmagent', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Log('Stop rmmagent: ' + IntToStr(ResultCode));
+  Exec('cmd.exe', '/c net stop tacticalagent', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Log('Stop tacticalagent: ' + IntToStr(ResultCode));
 
   Exec('cmd.exe', '/c ping 127.0.0.1 -n 2 && net stop tacticalrmm', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
   Log('Stop tacticalrmm: ' + IntToStr(ResultCode));
@@ -64,11 +64,11 @@ begin
   Exec('cmd.exe', '/c taskkill /F /IM tacticalrmm.exe', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
   Log('taskkill: ' + IntToStr(ResultCode));
 
-  Exec('cmd.exe', '/c sc delete rmmagent', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Log('delete rmmagent: ' + IntToStr(ResultCode));
+  Exec('cmd.exe', '/c sc delete tacticalagent', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Log('delete tacticalagent: ' + IntToStr(ResultCode));
 
-  Exec('cmd.exe', '/c sc delete scsrpc', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  Log('delete scsrpc: ' + IntToStr(ResultCode));
+  Exec('cmd.exe', '/c sc delete tacticalrpc', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  Log('delete tacticalrpc: ' + IntToStr(ResultCode));
 
   Result := True;
 end;
@@ -79,7 +79,7 @@ var
   WorkingDir:   String;
 begin
 
-  WorkingDir := ExpandConstant('{sd}\Program Files\SCSAgent');
+  WorkingDir := ExpandConstant('{sd}\Program Files\TacticalAgent');
   Exec('cmd.exe', ' /c tacticalrmm.exe -m installsvc', WorkingDir, SW_HIDE, ewWaitUntilTerminated, ResultCode);
   Log('install service: ' + IntToStr(ResultCode));
 

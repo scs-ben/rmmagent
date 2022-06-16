@@ -19,7 +19,7 @@ import (
 	"strings"
 	"time"
 
-	rmm "github.com/scs-ben/rmmagent/shared"
+	rmm "github.com/amidaware/rmmagent/shared"
 	"github.com/amidaware/taskmaster"
 	"github.com/rickb777/date/period"
 )
@@ -325,7 +325,7 @@ func CleanupSchedTasks() {
 	}
 
 	for _, task := range tasks {
-		if strings.HasPrefix(task.Name, "SCSRMM_") {
+		if strings.HasPrefix(task.Name, "TacticalRMM_") {
 			conn.DeleteTask(fmt.Sprintf("\\%s", task.Name))
 		}
 	}

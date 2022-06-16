@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	etcConfig = "/etc/rmmagent"
+	etcConfig = "/etc/tacticalagent"
 )
 
 func (a *Agent) checkExistingAndRemove(silent bool) {}

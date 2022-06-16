@@ -22,7 +22,7 @@ import (
 )
 
 func createAgentConfig(baseurl, agentid, apiurl, token, agentpk, cert, proxy, meshdir string) {
-	k, _, err := registry.CreateKey(registry.LOCAL_MACHINE, `SOFTWARE\SCSRMM`, registry.ALL_ACCESS)
+	k, _, err := registry.CreateKey(registry.LOCAL_MACHINE, `SOFTWARE\TacticalRMM`, registry.ALL_ACCESS)
 	if err != nil {
 		log.Fatalln("Error creating registry key:", err)
 	}
@@ -77,7 +77,7 @@ func createAgentConfig(baseurl, agentid, apiurl, token, agentpk, cert, proxy, me
 
 func (a *Agent) checkExistingAndRemove(silent bool) {
 	hasReg := false
-	_, err := registry.OpenKey(registry.LOCAL_MACHINE, `SOFTWARE\SCSRMM`, registry.ALL_ACCESS)
+	_, err := registry.OpenKey(registry.LOCAL_MACHINE, `SOFTWARE\TacticalRMM`, registry.ALL_ACCESS)
 	if err == nil {
 		hasReg = true
 	}
@@ -89,7 +89,7 @@ func (a *Agent) checkExistingAndRemove(silent bool) {
 		if !silent && window != 0 {
 			var handle w32.HWND
 			msg := "Existing installation found\nClick OK to remove, then re-run the installer.\nClick Cancel to abort."
-			action := w32.MessageBox(handle, msg, "SCS RMM", w32.MB_OKCANCEL|w32.MB_ICONWARNING)
+			action := w32.MessageBox(handle, msg, "Tactical RMM", w32.MB_OKCANCEL|w32.MB_ICONWARNING)
 			if action == w32.IDOK {
 				a.AgentUninstall("foo")
 			}

@@ -19,7 +19,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/scs-ben/rmmagent/agent"
+	"github.com/amidaware/rmmagent/agent"
 	"github.com/kardianos/service"
 	"github.com/sirupsen/logrus"
 )
@@ -63,15 +63,16 @@ func main() {
 		return
 	}
 
-	if len(os.Args) == 1 {
-		switch runtime.GOOS {
-		case "windows":
-			agent.ShowStatus(version)
-		default:
-			agent.ShowVersionInfo(version)
-		}
-		return
-	}
+	fmt.Println(len(os.Args))
+	// if len(os.Args) == 1 {
+	// 	switch runtime.GOOS {
+	// 	case "windows":
+	// 		agent.ShowStatus(version)
+	// 	default:
+	// 		agent.ShowVersionInfo(version)
+	// 	}
+	// 	return
+	// }
 
 	setupLogging(logLevel, logTo)
 	defer logFile.Close()
@@ -182,9 +183,9 @@ func setupLogging(level, to *string) {
 	} else {
 		switch runtime.GOOS {
 		case "windows":
-			logFile, _ = os.OpenFile(filepath.Join(os.Getenv("ProgramFiles"), "SCSAgent", "agent.log"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
+			logFile, _ = os.OpenFile(filepath.Join(os.Getenv("ProgramFiles"), "TacticalAgent", "agent.log"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
 		case "linux":
-			logFile, _ = os.OpenFile(filepath.Join("/var/log/", "rmmagent.log"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
+			logFile, _ = os.OpenFile(filepath.Join("/var/log/", "tacticalagent.log"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
 		}
 		log.SetOutput(logFile)
 	}

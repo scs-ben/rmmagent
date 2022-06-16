@@ -20,7 +20,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	rmm "github.com/scs-ben/rmmagent/shared"
+	rmm "github.com/amidaware/rmmagent/shared"
 	nats "github.com/nats-io/nats.go"
 	"github.com/ugorji/go/codec"
 )
