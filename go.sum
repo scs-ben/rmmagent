@@ -42,8 +42,8 @@ github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym
 github.com/StackExchange/wmi v1.2.0/go.mod h1:3eOhrUMpNV+6aFIbp5/iudMxNCF27Vw2OZgy4xEx0Fg=
 github.com/StackExchange/wmi v1.2.1 h1:VIkavFPXSjcnS+O8yTq7NI32k0R5Aj+v39y29VYDOSA=
 github.com/StackExchange/wmi v1.2.1/go.mod h1:rcmrprowKIVzvc+NUiLncP2uuArMWLCbu9SBzvHz7e8=
-github.com/scs-ben/taskmaster v0.0.0-20220111015025-c9cd178bbbf2 h1:1K03qwtvgdJRXJr0nE1qvzFPOmbWHBnnnbeblU7+Bg8=
-github.com/scs-ben/taskmaster v0.0.0-20220111015025-c9cd178bbbf2/go.mod h1:5UVBogOiPFWC2F6fKT/Kb9qD4NCsp2y+dCj+pvXnDQE=
+github.com/amidaware/taskmaster v0.0.0-20220111015025-c9cd178bbbf2 h1:1K03qwtvgdJRXJr0nE1qvzFPOmbWHBnnnbeblU7+Bg8=
+github.com/amidaware/taskmaster v0.0.0-20220111015025-c9cd178bbbf2/go.mod h1:5UVBogOiPFWC2F6fKT/Kb9qD4NCsp2y+dCj+pvXnDQE=
 github.com/capnspacehook/taskmaster v0.0.0-20210519235353-1629df7c85e9/go.mod h1:257CYs3Wd/CTlLQ3c72jKv+fFE2MV3WPNnV5jiroYUU=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/chzyer/logex v1.1.10/go.mod h1:+Ywpsq7O8HXn0nuIou7OrIPyXbp3wmkHB+jjWRnGsAI=

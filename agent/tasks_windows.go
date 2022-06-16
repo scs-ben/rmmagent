@@ -20,7 +20,7 @@ import (
 	"time"
 
 	rmm "github.com/scs-ben/rmmagent/shared"
-	"github.com/scs-ben/taskmaster"
+	"github.com/amidaware/taskmaster"
 	"github.com/rickb777/date/period"
 )
 
