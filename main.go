@@ -25,7 +25,7 @@ import (
 )
 
 var (
-	version = "2.0.4"
+	version = "2.0.41"
 	log     = logrus.New()
 	logFile *os.File
 )
@@ -184,7 +184,7 @@ func setupLogging(level, to *string) {
 		case "windows":
 			logFile, _ = os.OpenFile(filepath.Join(os.Getenv("ProgramFiles"), "SCSAgent", "agent.log"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
 		case "linux":
-			logFile, _ = os.OpenFile(filepath.Join("/var/log/", "scsagent.log"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
+			logFile, _ = os.OpenFile(filepath.Join("/var/log/", "rmmagent.log"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
 		}
 		log.SetOutput(logFile)
 	}
@@ -197,6 +197,6 @@ func installUsage() {
 }
 
 func updateUsage() {
-	u := `Usage: scsrmm.exe -m update -updateurl https://example.com/winagent-vX.X.X.exe -inno winagent-vX.X.X.exe -updatever 1.1.1`
+	u := `Usage: tacticalrmm.exe -m update -updateurl https://example.com/winagent-vX.X.X.exe -inno winagent-vX.X.X.exe -updatever 1.1.1`
 	fmt.Println(u)
 }

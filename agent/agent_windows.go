@@ -704,7 +704,7 @@ func (a *Agent) installMesh(meshbin, exe, proxy string) (string, error) {
 }
 
 // ChecksRunning prevents duplicate checks from running
-// Have to do it this way, can't use atomic because they can run from both rpc and scsagent services
+// Have to do it this way, can't use atomic because they can run from both rpc and rmmagent services
 func (a *Agent) ChecksRunning() bool {
 	running := false
 	procs, err := ps.Processes()

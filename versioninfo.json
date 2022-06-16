@@ -22,14 +22,14 @@
         "Comments": "",
         "CompanyName": "SCS Grand Rapids",
         "FileDescription": "SCS RMM Agent",
-        "FileVersion": "v2.0.4.0",
-        "InternalName": "scsrmm.exe",
+        "FileVersion": "v2.0.41.0",
+        "InternalName": "tacticalrmm.exe",
         "LegalCopyright": "Copyright (c) 2022 SCS Grand Rapids",
         "LegalTrademarks": "",
-        "OriginalFilename": "scsrmm.exe",
+        "OriginalFilename": "tacticalrmm.exe",
         "PrivateBuild": "",
         "ProductName": "SCS RMM Agent",
-        "ProductVersion": "v2.0.4.0",
+        "ProductVersion": "v2.0.41.0",
         "SpecialBuild": ""
     },
     "VarFileInfo": {

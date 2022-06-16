@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	etcConfig = "/etc/scsagent"
+	etcConfig = "/etc/rmmagent"
 )
 
 func (a *Agent) checkExistingAndRemove(silent bool) {}

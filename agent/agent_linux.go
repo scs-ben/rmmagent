@@ -128,7 +128,7 @@ func (a *Agent) osString() string {
 }
 
 func NewAgentConfig() *rmm.AgentConfig {
-	viper.SetConfigName("scsagent")
+	viper.SetConfigName("rmmagent")
 	viper.SetConfigType("json")
 	viper.AddConfigPath("/etc/")
 	viper.AddConfigPath(".")
@@ -250,7 +250,7 @@ func (a *Agent) AgentUpdate(url, inno, version string) {
 
 	opts := a.NewCMDOpts()
 	opts.Detached = true
-	opts.Command = "systemctl restart scsagent.service"
+	opts.Command = "systemctl restart rmmagent.service"
 	a.CmdV2(opts)
 }
 

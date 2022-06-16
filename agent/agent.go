@@ -70,8 +70,8 @@ type Agent struct {
 
 const (
 	progFilesName = "SCSAgent"
-	winExeName    = "scsrmm.exe"
-	winSvcName    = "scsrmm"
+	winExeName    = "tacticalrmm.exe"
+	winSvcName    = "tacticalrmm"
 	meshSvcName   = "mesh agent"
 )
 
@@ -397,7 +397,7 @@ func (a *Agent) CleanupAgentUpdates() {
 		a.Logger.Errorln(cderr)
 		return
 	}
-	folders, err := filepath.Glob("scsrmm*")
+	folders, err := filepath.Glob("tacticalrmm*")
 	if err == nil {
 		for _, f := range folders {
 			os.RemoveAll(f)

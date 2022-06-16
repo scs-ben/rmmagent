@@ -311,7 +311,7 @@ func DeleteSchedTask(name string) error {
 	return nil
 }
 
-// CleanupSchedTasks removes all scsrmm sched tasks during uninstall
+// CleanupSchedTasks removes all tacticalrmm sched tasks during uninstall
 func CleanupSchedTasks() {
 	conn, err := taskmaster.Connect()
 	if err != nil {
