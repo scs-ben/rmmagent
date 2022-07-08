@@ -25,7 +25,7 @@ import (
 )
 
 var (
-	version = "2.0.41"
+	version = "2.1.1"
 	log     = logrus.New()
 	logFile *os.File
 )
@@ -63,16 +63,15 @@ func main() {
 		return
 	}
 
-	fmt.Println(len(os.Args))
-	// if len(os.Args) == 1 {
-	// 	switch runtime.GOOS {
-	// 	case "windows":
-	// 		agent.ShowStatus(version)
-	// 	default:
-	// 		agent.ShowVersionInfo(version)
-	// 	}
-	// 	return
-	// }
+	if len(os.Args) == 1 {
+		switch runtime.GOOS {
+		case "windows":
+			agent.ShowStatus(version)
+		default:
+			agent.ShowVersionInfo(version)
+		}
+		return
+	}
 
 	setupLogging(logLevel, logTo)
 	defer logFile.Close()
@@ -198,6 +197,6 @@ func installUsage() {
 }
 
 func updateUsage() {
-	u := `Usage: tacticalrmm.exe -m update -updateurl https://example.com/winagent-vX.X.X.exe -inno winagent-vX.X.X.exe -updatever 1.1.1`
+	u := `Usage: tacticalrmm.exe -m update -updateurl https://example.com/tacticalagent-vX.X.X.exe -inno tacticalagent-vX.X.X.exe -updatever 1.1.1`
 	fmt.Println(u)
 }

@@ -1,5 +1,5 @@
 #define MyAppName "SCS RMM Agent"
-#define MyAppVersion "2.0.41"
+#define MyAppVersion "2.1.1"
 #define MyAppPublisher "SCS Grand Rapids"
 #define MyAppURL "https://github.com/amidaware"
 #define MyAppExeName "tacticalrmm.exe"
