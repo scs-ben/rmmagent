@@ -162,7 +162,7 @@ func NewAgentConfig() *rmm.AgentConfig {
 	return ret
 }
 
-func (a *Agent) RunScript(code string, shell string, args []string, timeout int) (stdout, stderr string, exitcode int, e error) {
+func (a *Agent) RunScript(code string, shell string, args []string, timeout int, runasuser bool) (stdout, stderr string, exitcode int, e error) {
 	code = removeWinNewLines(code)
 	content := []byte(code)
 
@@ -209,6 +209,13 @@ func SetDetached() *syscall.SysProcAttr {
 	return &syscall.SysProcAttr{Setpgid: true}
 }
 
+func (a *Agent) seEnforcing() bool {
+	opts := a.NewCMDOpts()
+	opts.Command = "getenforce"
+	out := a.CmdV2(opts)
+	return out.Status.Exit == 0 && strings.Contains(out.Stdout, "Enforcing")
+}
+
 func (a *Agent) AgentUpdate(url, inno, version string) {
 
 	self, err := os.Executable()
@@ -225,7 +232,7 @@ func (a *Agent) AgentUpdate(url, inno, version string) {
 	defer os.Remove(f.Name())
 
 	a.Logger.Infof("Agent updating from %s to %s", a.Version, version)
-	a.Logger.Infoln("Downloading agent update from", url)
+	a.Logger.Debugln("Downloading agent update from", url)
 
 	rClient := resty.New()
 	rClient.SetCloseConnection(true)
@@ -274,6 +281,13 @@ func (a *Agent) AgentUpdate(url, inno, version string) {
 			a.Logger.Errorln("AgentUpdate() os.Rename():", rerr)
 			return
 		}
+	}
+
+	if a.seEnforcing() {
+		se := a.NewCMDOpts()
+		se.Command = fmt.Sprintf("restorecon -rv %s", self)
+		out := a.CmdV2(se)
+		a.Logger.Debugln("%+v\n", out)
 	}
 
 	opts := a.NewCMDOpts()
@@ -507,7 +521,7 @@ func (a *Agent) installMesh(meshbin, exe, proxy string) (string, error) {
 	return "not implemented", nil
 }
 
-func CMDShell(shell string, cmdArgs []string, command string, timeout int, detached bool) (output [2]string, e error) {
+func CMDShell(shell string, cmdArgs []string, command string, timeout int, detached bool, runasuser bool) (output [2]string, e error) {
 	return [2]string{"", ""}, nil
 }
 

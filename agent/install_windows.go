@@ -119,7 +119,7 @@ func (a *Agent) installerMsg(msg, alert string, silent bool) {
 			flags = w32.MB_OK | w32.MB_ICONINFORMATION
 		}
 
-		w32.MessageBox(handle, msg, "SCS RMM", flags)
+		w32.MessageBox(handle, msg, "Tactical RMM", flags)
 	} else {
 		fmt.Println(msg)
 	}
